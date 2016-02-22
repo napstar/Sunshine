@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.util.Log;
+import android.widget.ListView;
+
 import java.util.*;
 
 
@@ -15,13 +19,25 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
+        try
+        {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new PlaceholderFragment())
+                        .commit();
+            }
+            else {
+                Log.e("MainActivity:onCreate", "Main is null");
+            }
         }
+        catch(Exception ex)
+        {
+            Log.e("MainActivity:onCreate", ex.getMessage());
+            Log.e("MainActivity:onCreate", ex.toString());
+        }
+
     }
 
 
@@ -55,6 +71,8 @@ public class MainActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+        //array adpter
+        ArrayAdapter<String> mForecastAdapter;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -71,8 +89,33 @@ public class MainActivity extends ActionBarActivity {
                     };
 
            List<String>  weekForcast= new ArrayList<String>(Arrays.asList(data));
+
+            //add dummy data
+            //create array adapter
+            //populate listview
+
+            mForecastAdapter= new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.list_item_forecast,
+                    R.id.list_item_forecast_textview,
+                    weekForcast
+
+            );
+         //   setListAdapter(mForecastAdapter);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            ListView listView= (ListView)rootView.findViewById(R.id.listview_forecast);
+            listView.setAdapter(mForecastAdapter);
+
             return rootView;
+
+
+
         }
     }
+
+
+
+
+
 }

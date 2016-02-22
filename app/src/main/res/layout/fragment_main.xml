@@ -5,7 +5,8 @@
     android:paddingRight="64dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".MainActivity$PlaceholderFragment">
+    tools:context=".MainActivity$PlaceholderFragment"
+    android:id="@+id/listview_FrameLayout">
 
 
 
