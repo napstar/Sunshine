@@ -10,13 +10,21 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        buildTypes.each {
+            def OPEN_WEATHER_MAP_API_KEY = it.buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", "\"9b2da7ef3011dd609c6851f8e472f138\"")
+
         }
     }
+
 }
 
 dependencies {
